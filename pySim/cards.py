@@ -528,8 +528,9 @@ class SysmoUSIMSJS1(Card):
 		data, sw = self._scc.update_binary('00FF', p['ki'])
 
 		# set Ki in proprietary file
-		content = "01" + p['opc']
-		data, sw = self._scc.update_binary('00F7', content)
+		if 'opc' in p:
+			content = "01" + p['opc']
+			data, sw = self._scc.update_binary('00F7', content)
 
 
 		# write EF.IMSI

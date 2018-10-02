@@ -319,14 +319,18 @@ def gen_parameters(opts):
 			raise ValueError('SMSP must be at least 28 bytes')
 
 	else:
+                ton = "81"
 		if opts.smsc is not None:
 			smsc = opts.smsc
-			if not _isnum(smsc):
+                        if smsc[0] == '+':
+                            ton = "91"
+                            smsc = smsc[1:]
+                        if not _isnum(smsc):
 				raise ValueError('SMSC must be digits only !')
 		else:
 			smsc = '00%d' % opts.country + '5555'	# Hack ...
 
-		smsc = '%02d' % ((len(smsc) + 3)//2,) + "81" + swap_nibbles(rpad(smsc, 20))
+		smsc = '%02d' % ((len(smsc) + 3)//2,) + ton + swap_nibbles(rpad(smsc, 20))
 
 		smsp = (
 			'e1' +			# Parameters indicator

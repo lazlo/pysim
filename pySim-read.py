@@ -176,5 +176,25 @@ if __name__ == '__main__':
 	except Exception as e:
 		print "MSISDN: Can't read file -- " + str(e)
 
+	# EF.BCCH
+	try:
+		(res, sw) = scc.read_binary(EF['BCCH'])
+		if sw == '9000':
+			print("BCCH: %s" % (res,))
+		else:
+			print("BCCH: Can't read, response code = %s" % (sw,))
+	except Exception as e:
+		print("BCCH: Can't read file -- " + str(e))
+
+	# EF.CPBCCH
+	try:
+		(res, sw) = scc.read_binary(EF['CPBCCH'])
+		if sw == '9000':
+			print("CPBCCH: %s" % (res,))
+		else:
+			print("CPBCCH: Can't read, response code = %s" % (sw,))
+	except Exception as e:
+		print("CPBCCH: Can't read file -- " + str(e))
+
 	# Done for this card and maybe for everything ?
 	print "Done !\n"
